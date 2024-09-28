@@ -1,10 +1,10 @@
-from typing import Optional, List, Tuple, Union
+from typing import Optional, List, Tuple, Union, Pattern, Callable
 
 from telegram.ext import filters, CallbackQueryHandler, CommandHandler, MessageHandler
 from telegram.ext.filters import BaseFilter
 
 
-class CustomHandler:
+class Handlers:
 
     def command(
         self,
