@@ -3,6 +3,8 @@ from typing import Optional, List, Tuple, Union, Pattern
 from telegram.ext import filters, CallbackQueryHandler, CommandHandler, MessageHandler
 from telegram.ext.filters import BaseFilter
 
+from ..application import application
+
 
 def command(
     command: Union[List[str], Tuple[str], str],
