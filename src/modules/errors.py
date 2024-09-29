@@ -1,6 +1,7 @@
-import traceback
+import aiofiles
 import html
 import random
+import traceback
 
 from telegram import Update, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import CallbackContext
@@ -53,16 +54,16 @@ async def error_callback(update: Update, context: CallbackContext):
 
     if paste_url := nixnet.upload_text(pretty_message):
         await context.bot.send_message(
-            ConfigManager.get('general', 'LOGS_CHAT'),
+            ConfigManager.get('telegram', 'LOGS_CHAT'),
             text=f'#{context.error.identifier}\n<b>Unhandled exception caught:</b>\n<code>{e}</code>',
             reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("PrivateBin", url=paste_url)]]),
             parse_mode=ParseMode.HTML,
         )
     else:
-        with open('error.txt', 'w+') as f:
+        async with aiofiles.open('error.txt', 'w+') as f:
             f.write(pretty_message)
         await context.bot.send_document(
-            ConfigManager.get('general', 'LOGS_CHAT'),
+            ConfigManager.get('telegram', 'LOGS_CHAT'),
             open('error.txt', 'rb'),
             caption=f'#{context.error.identifier}\n<b>Unhandled exception caught:</b>\n<code>{e}</code>',
             parse_mode=ParseMode.HTML,
