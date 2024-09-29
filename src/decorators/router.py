@@ -36,10 +36,10 @@ def command(
     has_args: Optional[Union[bool, int]] = None,
     group: Optional[int] = 0
 ):
-    async def wrapper(callback):
+    def wrapper(callback):
         if filters is not None: filters = ~UpdateType.EDITED & filters
         else: filters = ~UpdateType.EDITED
-        await application.add_handler(
+        application.add_handler(
             CommandHandler(
                 command,
                 callback,
@@ -49,7 +49,7 @@ def command(
             ),
             group
         )
-        await logger.adebug(
+        logger.info(
             'Loaded handler %s for function %s',
             command,
             callback.__name__
@@ -63,11 +63,11 @@ def message(
     block: Optional[bool] = True,
     group: Optional[int] = 0
 ):
-    async def wrapper(callback):
+    def wrapper(callback):
         if filters is not None: filters = ~UpdateType.EDITED & filters
         else: filters = ~UpdateType.EDITED
-        await application.add_handler(MessageHandler(filters, callback, block), group)
-        await logger.adebug(
+        application.add_handler(MessageHandler(filters, callback, block), group)
+        logger.info(
             'Loaded filter pattern for function %s',
             callback.__name__
         )
@@ -82,9 +82,9 @@ def callback_query(
     block: Optional[bool] = True,
     group: Optional[int] = 0
 ):
-    async def wrapper(callback):
-        await application.add_handler(CallbackQueryHandler(pattern=pattern, callback=callback, block=block), group)
-        await logger.adebug(
+    def wrapper(callback):
+        application.add_handler(CallbackQueryHandler(pattern=pattern, callback=callback, block=block), group)
+        logger.info(
             'Loaded callbackquery handler with pattern %s for function %s',
             pattern,
             callback.__name__
@@ -96,9 +96,9 @@ def callback_query(
 def error(
     block: Optional[bool] = True
 ):
-    async def wrapper(callback):
-        await application.add_error_handler(callback, block)
-        await logger.adebug(
+    def wrapper(callback):
+        application.add_error_handler(callback, block)
+        logger.info(
             'Loaded error handler for function %s',
             callback.__name__
         )
