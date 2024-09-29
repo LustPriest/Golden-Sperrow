@@ -14,7 +14,7 @@ DEFAULT_CONFIG_TEMPLATE: dict[str, dict[str, str | bool | int] | dict[str, list[
         "BACKUPS_CHAT": "-123",
     },
     "general": {
-        "SENTRY_DSN": "",
+        "PASTEBIN_API_DEV_KEY": "",
     },
 }
 
