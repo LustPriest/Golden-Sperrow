@@ -5,9 +5,9 @@ from telegram import Update
 from telegram.ext import CallbackContext, CommandHandler, CallbackQueryHandler, MessageHandler
 from telegram.ext.filters import BaseFilter, UpdateType
 
-from ..application import application
-from ..utils.logging import logger
-from ..utils.cache import cache
+from src.application import application
+from src.utils.cache import cache
+from src.utils.logging import logger
 
 
 def rate_limit(messages_per_window: int, window_seconds: int):
