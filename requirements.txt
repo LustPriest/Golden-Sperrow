@@ -1,15 +1,13 @@
 aiofiles==24.1.0
 alphabet-detector==0.0.7
 asyncio==3.12.6
-base58==0.2.1
 cashews[redis,speedup]==7.3.0
 emoji==2.2.0
 humanize==4.10.0
+paspybin==1.0.1
 picologging==0.9.3
-pycryptodome==3.19.0
 psutil==6.5.2
 pyrate-limiter==3.7.0
-pytz==2024.1
 python-telegram-bot==21.6
 regex==2024.7.24
 structlog==24.4.0
