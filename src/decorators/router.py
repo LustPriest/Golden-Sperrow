@@ -12,7 +12,7 @@ def command(
     filters: Optional[BaseFilter] = None,
     block: Optional[bool] = True,
     has_args: Optional[Union[bool, int]] = None,
-    group: Optional[int] = 0,
+    group: Optional[int] = 0
 ):
     async def wrapper(callback):
         await application.add_handler(
@@ -37,7 +37,7 @@ def command(
 def message(
     filters: Optional[BaseFilter] = None,
     block: Optional[bool] = True,
-    group: Optional[int] = 0,
+    group: Optional[int] = 0
 ):
     async def wrapper(callback):
         await application.add_handler(MessageHandler(filters, callback, block), group)
@@ -55,13 +55,26 @@ def callback_query(
         Union[str, Pattern[str], Optional[bool]]
     ] = None,
     block: Optional[bool] = True,
-    group: Optional[int] = 0,
+    group: Optional[int] = 0
 ):
     async def wrapper(callback):
         await application.add_handler(CallbackQueryHandler(pattern=pattern, callback=callback, block=block), group)
         await logger.adebug(
             'Loaded callbackquery handler with pattern %s for function %s',
             pattern,
+            callback.__name__
+        )
+        return callback
+    return wrapper
+
+
+def error(
+    block: Optional[bool] = True
+):
+    async def wrapper(callback):
+        await application.add_error_handler(callback, block)
+        await logger.adebug(
+            'Loaded error handler for function %s',
             callback.__name__
         )
         return callback
