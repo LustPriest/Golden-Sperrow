@@ -6,10 +6,10 @@ from telegram import Update, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import CallbackContext
 from telegram.constants import ChatType, ParseMode
 
-from ..utils import nixnet
-from ..utils.logging import logger
-from ..config import ConfigManager
-from ..decorators import router
+from src.config import ConfigManager
+from src.decorators import router
+from src.utils import nixnet
+from src.utils.logging import logger
 
 class ErrorsDict(dict):
     """A custom dict to store errors and their count"""
