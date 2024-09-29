@@ -1,4 +1,7 @@
 from functools import wraps
+from pyrate_limiter import Limiter, RequestRate, Duration, MemoryListBucket
+from pyrate_limiter.exceptions import RateLimitException
+import time
 from typing import Optional, List, Tuple, Union, Pattern
 
 from telegram import Update
@@ -9,19 +12,23 @@ from src.application import application
 from src.utils.caching import cache
 from src.utils.logging import logger
 
+rate = RequestRate(1, Duration.SECOND * 2)
+bucket = MemoryListBucket()
+limiter = Limiter(rate, bucket)
+
 
 def rate_limit(messages_per_window: int, window_seconds: int):
     def decorator(callback):
         @wraps(callback)
         async def wrapper(update: Update, context: CallbackContext):
-            key = f'{update.effective_user.id}'
+            user_id = f'{update.effective_user.id}'
             try:
-                await cache.rate_limit(key, limit=messages_per_window, period=window_seconds)
-            except cache.RateLimitError:
-                await logging.ainfo(
+                limiter.try_acquire(user_id)
+            except RateLimitException:
+                await logging.awarning(
                     'Rate limit exceeded for user %s. '
                     'Allowed %s updates in %s seconds.',
-                    key, messages_per_window, window_seconds
+                    user_id, messages_per_window, window_seconds
                 )
                 return
             return await callback(update, context)
