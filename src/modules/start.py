@@ -2,7 +2,7 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.constants import ParseMode
 from telegram.ext import CallbackContext, CallbackQueryHandler
 
-from ..decorators import router
+from src.decorators import router
 
 
 @router.command('start', pass_args=True)
