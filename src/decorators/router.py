@@ -6,7 +6,7 @@ from telegram.ext import CallbackContext, CommandHandler, CallbackQueryHandler, 
 from telegram.ext.filters import BaseFilter, UpdateType
 
 from src.application import application
-from src.utils.cache import cache
+from src.utils.caching import cache
 from src.utils.logging import logger
 
 
