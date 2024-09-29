@@ -1,3 +1,4 @@
+import sys
 import picologging as logging
 import structlog
 
