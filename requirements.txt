@@ -1,0 +1,12 @@
+aiofiles==24.1.0
+aiolimiter==1.2.1
+apscheduler==3.11.0
+beanie==2.0.0
+cachetools==6.1.0
+flask==3.1.1
+loguru==0.7.3
+meval==2.5
+paspybin==1.1.0
+pydantic==2.11.7
+python-telegram-bot[job-queue]==22.3
+pymongo==4.14.0
